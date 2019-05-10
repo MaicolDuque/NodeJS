@@ -1,4 +1,4 @@
-const {estudiante, obtenerPromedio} = require("./estudiante");
+const cursos = require("./datos");
 const fs = require('fs');
 
 let {nombre, edad, notas: {matematicas, ingles, programacion}} = estudiante;
