@@ -17,8 +17,25 @@ let cursos = [
     duracion: 15,
     valor: 25000
   }
-]
+];
+
+
+const opciones = {
+  id: {
+    demand: true,
+    alias: 'i'
+  },
+  nombre: {
+    demand: true,
+    alias: 'n'
+  },
+  cedula: {
+    demand: true,
+    alias: 'x'
+  }
+}
 
 module.exports = {
- cursos 
+ cursos,
+ opciones
 }
