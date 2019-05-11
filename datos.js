@@ -13,7 +13,7 @@ let cursos = [
   },
   {
     id: 3,
-    nombre: "Angular - Fundamentos",
+    nombre: "Vue JS - Fundamentos",
     duracion: 15,
     valor: 25000
   }
