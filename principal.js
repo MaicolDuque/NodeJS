@@ -12,7 +12,7 @@ let mostrarCursos = () =>{
       Duracion curso: ${duracion}
       Valor curso: ${valor}
       `);
-    },2000*i)
+    },2000*(i+1))
   })
 }
 

@@ -1,2 +1,2 @@
- > El estudiante: Maicol, con cédula 123456
+ > El estudiante: Maicol, con cédula 321123
   se ha matriculado en el curso React JS - Fundamentos, tiene una duracion de 24 y un costo de 120000.
