@@ -1,4 +1,6 @@
 const {cursos, opciones} = require("./datos");
+const express = require('express')
+const app = express()
 const fs = require('fs');
 const argv = require("yargs")
             .command('inscribir', 'Incribirme en un curso', opciones)
@@ -24,10 +26,15 @@ if(argv.id){
     texto = ` > El estudiante: ${argv.nombre}, con cédula ${argv.cedula}
   se ha matriculado en el curso ${nombre}, tiene una duracion de ${duracion} y un costo de ${valor}.`;
   
-    fs.writeFile('matricula.txt', texto, (err)=>{
-      if(err) throw(err);
-      console.log("Se ha creado el archivo...");
-    })        
+    // fs.writeFile('matricula.txt', texto, (err)=>{
+    //   if(err) throw(err);
+    //   console.log("Se ha creado el archivo...");
+    // }) 
+        
+    app.get('/', function (req, res) {
+      res.send(texto)
+      console.log("Se imprimió resultado en: http://localhost:3000/");
+    })
   }else{
     console.log("Ha ingresado un ID que no corresponde a ningún curso.");
     mostrarCursos();
@@ -38,3 +45,5 @@ if(argv.id){
 }
 
 
+ 
+app.listen(3000)
