@@ -1,3 +1,12 @@
 {{>header}}
   <p>pagina dinamica 0</p>
+
+<form action="/calculos" method="post">
+  <input type="text" name="nombre">
+  <input type="text" name="nota1">
+  <input type="text" name="nota2">
+  <input type="text" name="nota3">
+  <button type="submit">Enviar</button>
+</form>
+<div>{{{listar}}}</div>
 {{>footer}}
