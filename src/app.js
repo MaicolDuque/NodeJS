@@ -5,7 +5,10 @@ const hbs = require("hbs");
 
 
 const directorioPublico = path.join(__dirname, "../public" )
+const directorioPublicoPartials = path.join(__dirname, "../partials" );
 app.use(express.static(directorioPublico))
+
+hbs.registerPartials(directorioPublicoPartials);
 
 app.set("view engine", 'hbs');
 
