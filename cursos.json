@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1, 
+    "nombre": "Node JS", 
+    "descripcion": "Curso funcdamentos de Node JS",
+    "valor": 50000,
+    "modalidad": "virtual",
+    "intensidad": 2,
+    "estado": "disponible"
+  }
+]

@@ -1,12 +1,78 @@
 {{>header}}
-  <p>pagina dinamica 0</p>
+<h1>Agregar Curso</h1>
+
+
+<div style="display:none" class="alert alert-success alert-dismissible fade show" role="alert">
+  Curso creado exitosamente!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  Ya existe un curso con es ID
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+
 
 <form action="/calculos" method="post">
-  <input type="text" name="nombre">
-  <input type="text" name="nota1">
-  <input type="text" name="nota2">
-  <input type="text" name="nota3">
-  <button type="submit">Enviar</button>
+  <div class="form-row">
+    <div class="col">
+      <input type="number" class="form-control" name="id" placeholder="ID">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+    </div>
+  </div>
+
+  <div class="form-row my-2 ">
+    <div class="col">
+      <select name="modalidad" id="" class="form-control">
+        <option value="">Seleccione modalidad</option>
+        <option value="presencial">Presencial</option>
+        <option value="virtual">Virtual</option>
+      </select>
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" name="valor" placeholder="Valor">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <textarea name="descripcion" id="" cols="73" rows="4" placeholder="Descripción.."></textarea>
+    </div>
+    <div class="col">
+      <input type="number" class="form-control" name="intensidad" placeholder="Número de horas semanales">
+    </div>
+
+    <input type="hidden" name="estado" value="disponible">
+
+    
+
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">ENVIAR</button>
+
+    </div>
+  
 </form>
-<div>{{{listar}}}</div>
+
+
+  <script>
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      //$('.alert').alert('close');
+      $( ".alert" ).click(function() {
+        $('.alert').alert('close');
+      });
+    });
+  </script>
+{{!-- <div>{{{listar}}}</div> --}}
 {{>footer}}
+

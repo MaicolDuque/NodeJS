@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require("path");
 const app = express()
+const funciones = require("./funciones");
 const hbs = require("hbs");
 require("./helpers");
 const bodyParser = require("body-parser");
@@ -23,8 +24,8 @@ app.get("/", (req, res) => {
 app.post("/calculos", (req, res) => {
 
   console.log("=>",req.body);
-
-  res.render("calculos", {
+  funciones.agregarCurso(req.body);
+  res.render("index", {
     estudiante: req.body.nombre,
     nota1: parseInt(req.body.nota1),
     nota2: parseInt(req.body.nota2),
