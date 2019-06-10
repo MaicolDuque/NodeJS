@@ -20,11 +20,14 @@ app.get("/", (req, res) => {
 })
  
 app.get("/calculos", (req, res) => {
+
+  console.log("=>",req.query);
+
   res.render("calculos", {
-    estudiante: 'MAICOL DUQUE',
-    nota1: 5,
-    nota2: 4,
-    nota3: 3
+    estudiante: req.query.nombre,
+    nota1: parseInt(req.query.nota1),
+    nota2: parseInt(req.query.nota2),
+    nota3: parseInt(req.query.nota3)
   })
 })
 
