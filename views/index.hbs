@@ -1,0 +1,48 @@
+{{>header}}
+<h1>Agregar Curso</h1>
+
+<form action="/agregar-curso" method="post">
+  <div class="form-row">
+    <div class="col">
+      <input type="number" required="required" class="form-control" name="id" placeholder="ID">
+    </div>
+    <div class="col">
+      <input type="text" required="required" class="form-control" name="nombre" placeholder="Nombre">
+    </div>
+  </div>
+
+  <div class="form-row my-2 ">
+    <div class="col">
+      <select name="modalidad" id="" class="form-control">
+        <option value="--">Seleccione modalidad</option>
+        <option value="presencial">Presencial</option>
+        <option value="virtual">Virtual</option>
+      </select>
+    </div>
+    <div class="col">
+      <input type="text" required="required" class="form-control" name="valor" placeholder="Valor">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <textarea name="descripcion" required="required" id="" cols="73" rows="4" placeholder="Descripción.."></textarea>
+    </div>
+    <div class="col">
+      <input type="number" class="form-control" name="intensidad" placeholder="Número de horas semanales">
+    </div>
+
+    <input type="hidden" name="estado" value="disponible">
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">ENVIAR</button>
+  </div>
+  
+</form>
+
+
+  
+{{!-- <div>{{{listar}}}</div> --}}
+{{>footer}}
+

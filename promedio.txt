@@ -1,2 +1,0 @@
-  Nombre estudiante: Maicol
-  Promedio estudiante: 4.333333333333333
