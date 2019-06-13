@@ -1,4 +1,5 @@
 const express = require('express')
+const port = process.env.PORT || 3000;
 const path = require("path");
 const app = express()
 const funciones = require("./funciones");
@@ -92,6 +93,6 @@ app.get("*", (req, res) => {
 });
 
 
-app.listen(3000, () => {
-  console.log("Escuchando puerto 3000 ");
+app.listen(port, () => {
+  console.log(`Escuchando puerto ${port}`);
 })
