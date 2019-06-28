@@ -1,225 +1,165 @@
-const fs = require("fs");
-
-let listadoCursos = [];
-let listadoUsuarios = [];
-
-const listar = () => {
-  try{
-    listadoCursos = require("../cursos.json");
-  }catch(e){
-    listadoCursos = [];
-  }
-}
-
-
-const listarUsuarios = () => {
-  try{
-    listadoUsuarios = require("../usuarios.json");
-  }catch(e){
-    listadoUsuarios = [];
-  }
-}
-
-
-const mostrar = () =>{
-  listar();
-  return listadoCursos;
-}
-
+const fs = require ('fs');
+let listaEstudiantes = [];
 
 const guardar = () => {
-  let datos = JSON.stringify(listadoCursos);
-  console.log("datos", datos);
-  fs.writeFile("cursos.json", datos, (err)=>{
-    if(err) throw (err)
-    console.log("Archivo creado con éxito");
-  })
+	let data = JSON.stringify(listaEstudiantes);
+	fs.writeFile(`src/listado.json`, data , (err) => {
+		  	  	if (err) throw (err);
+		  		console.log ('se ha creado el archivo');		  	
+			});
 }
 
-
-const guardarUsuario = () => {
-  let datos = JSON.stringify(listadoUsuarios);
-  console.log("datos", datos);
-  fs.writeFile("usuarios.json", datos, (err)=>{
-    if(err) throw (err)
-    console.log("Archivo creado con éxito");
-  })
+const cargar = () => {
+	try {
+	  listaEstudiantes = require ('./listado.json');
+	
+	 } catch(err){
+	 	listaEstudiantes =[];
+	 }
 }
 
+let duplicado = listaEstudiantes.find(nom => nom.nombre == Estudiante.nombre)
 
-const actualizarEstado = (id, state) => {
-  listar();
-  let curso = listadoCursos.find(cur => cur.id == id);
-  console.log("Curso:", curso)
-  if(curso){
-    curso.estado = state;
-    guardar();
-  }
+const crear = (estudiante) => {
+	cargar();	
+	// let est = {		
+	// 	nombre: estudiante.nombre,
+	// 	matematicas: estudiante.nota1,
+	// 	ingles: estudiante.nota1,
+	// 	programacion: estudiante.nota1		
+	// };
+	listaEstudiantes.push(estudiante);	
+	guardar();	
+	return ('estudiante guardado con exito');
 }
 
-
-const cursosDisponibles = () => {
-  listar();
-  return listadoCursos.filter(curso => curso.estado == 'disponible');
+const promedio = (nom)=>{
+	cargar();
+	let encontrar = listaEstudiantes.find( buscado =>  buscado.nombre == nom)	
+	if (!encontrar){
+		return 'No hay estudiante con ese nombre'
+	}
+	else {		
+		let promedio = (encontrar.matematicas + encontrar.ingles + encontrar.programacion) / 3;		
+		return `Su promedio es ${promedio} ` 
+	}
 }
 
+const listar = () => {
+listaEstudiantes = require('./listado.json')
+	let texto = `<table class='table table-striped table-hover'> 
+				<thead class='thead-dark'>
+				<th>Nombre</th>
+				<th>Matematicas</th>
+				<th>Ingles</th>
+				<th>Programacion</th>
+				</thead>
+				<tbody>`;
+	listaEstudiantes.forEach(estudiante =>{
+		texto = texto + 
+				`<tr>
+				<td> ${estudiante.nombre} </td>
+				<td> ${estudiante.matematicas} </td>
+				<td> ${estudiante.ingles}</td>
+				<td> ${estudiante.programacion} </td>
+				</tr> `;
 
-const agregarCurso = (curso) => {
-  console.log("Info=>", curso.nombre);
+	})
+	texto = texto + '</tbody> </table>';	
+	return texto;
 
-  listar();
-  let cursoNew = {
-    nombre      : curso.nombre,
-    id          : curso.id,
-    modalidad   : curso.modalidad,
-    valor       : curso.valor,
-    descripcion : curso.descripcion,
-    intensidad  : curso.intensidad,
-    estado      : curso.estado,
-    usuarios    : []
-  }
-
-  let existe = listadoCursos.find(cur => cur.id == curso.id);
-
-  console.log(existe)
-  if(!existe){
-    listadoCursos.push(cursoNew);
-    guardar();
-    return true;
-  }
-  return false;
 }
 
+const listar2 = () => {
+listaEstudiantes = require('./listado.json')
+	let texto = "<div class='accordion' id='accordionExample'>";
+	i = 1;
+	listaEstudiantes.forEach(estudiante =>{
+		texto = texto + 
+				`<div class="card">
+					    <div class="card-header" id="heading${i}">
+					      <h2 class="mb-0">
+					        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+					          ${estudiante.nombre}
+					        </button>
+					      </h2>
+					    </div>
 
-const agregarUsuarioCurso = (usuario) => {
-  listarUsuarios();
-
-  let newUsuario = {
-    documento   : usuario.documento,
-    nombre      : usuario.nombre,
-    correo      : usuario.correo,
-    telefono    : usuario.telefono,
-    rol         : usuario.rol,
-  }
-
-  let existe = listadoUsuarios.find(user => user.documento == usuario.documento);
-
-  //Agregar usuario
-  if(!existe){
-    listadoUsuarios.push(newUsuario);
-    guardarUsuario();
-  }
-
-
-  listar();
-  let cursoUsuario = listadoCursos.find(curso => curso.id == usuario.curso);
-  let usuarios = cursoUsuario.usuarios.find(user => user.documento == usuario.documento)
-  //Agregar usuario a curso
-  if(!usuarios){
-    cursoUsuario.usuarios.push(newUsuario);
-    guardar();
-    return true;
-  }
-  return false;
+					    <div id="collapse${i}" class="collapse" aria-labelledby="heading${i}" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	Tiene una nota en matemáticas de ${estudiante.matematicas} <br>
+					      	Tiene una nota en matemáticas de ${estudiante.ingles} <br>
+					      	Tiene una nota en matemáticas de ${estudiante.programacion} <br>  
+					    </div>
+					  </div>`				
+				i++;
+	})
+	texto = texto + '</div>';	
+	return texto;
 }
 
+const actualizar = (nombre, materia, nota) => {
+	cargar();		
+	let encontrar = listaEstudiantes.find( est =>  est.nombre == nombre)
+	console.log(encontrar)
+	if (!encontrar){
+			console.log('Estudiante no encontrado')
+	} else {
+		encontrar[materia] = nota;	
+		guardar();
+		listar();
+	}
+}
 
-const eliminarUsuarioCurso = (idcurso, documento) => {
-  listar();
-  let curso = listadoCursos.find(cu => cu.id == idcurso);
-  let usuariosCurso = curso.usuarios;
+const mostrar = (nom)=>{
+	cargar();
+	let encontrar = listaEstudiantes.find( buscado =>  buscado.nombre == nom)	
+	if (!encontrar){
+		return 'No hay estudiante con ese nombre'
+	}
+	else {	
+		texto = `<p> ${encontrar.nombre} tiene las siguientes notas <br>
+				Matemáticas = ${encontrar.matematicas} <br>
+				Inglés = ${encontrar.ingles} <br>
+				Programación = ${encontrar.programacion} <br>
+				</p>`	
+				
+		return texto 
+	}
+}
 
-  let indexUsuario = usuariosCurso.findIndex(usuario => usuario.documento = documento);
-  usuariosCurso.splice(indexUsuario,1);
-  guardar();
+const borrar = (nom) =>{
+	cargar();
+	//Método que modifica el array original
+	let indice = lista.findIndex(nom => nom.id == idcurso)
+	if (!indice){
+		return 'No existe';
+	}
+	else {
+		lista.splice(indice, 1)	
+		guardar();
+		return 'Elemento borrado';
+	}
+	
+	// Método alternativo que crea un nuevo array y sobreescribe el anterior
+	// let nueva = listaEstudiantes.filter(buscado =>  buscado.nombre != nom);
+	// if (listaEstudiantes.length == nueva.length){
+	// 	return 'No existe';
+	// }
+	// else {
+	// 	listaEstudiantes= nueva;
+	// 	guardar();
+	// 	return 'Elemento borrado';
+	// }
 }
 
 
 module.exports = {
-  agregarCurso,
-  mostrar,
-  actualizarEstado,
-  cursosDisponibles,
-  agregarUsuarioCurso,
-  eliminarUsuarioCurso
+	crear,
+	promedio,
+	listar,
+	listar2,		
+	actualizar,
+	mostrar,
+	borrar
 }
-
-
-
-//https://antsanchez-dev.blogspot.com/2017/05/handlebarjs-referencia-basica.html
-
-
-/*
-
-const fs = require("fs")
-
-let listadoEstudiantes = [];
-
-
-
-
-const crear = ({nombre,matematicas,ingles,programacion}) => {
-  
-  
-  
-}
-
-const listar = () => {
-  try{
-    listadoEstudiantes = require("./listado.json");
-  }catch(e){
-    listadoEstudiantes = [];
-  }
-
-}
-
-
-
-const mostrarEstudiante = (nombreEstudiante) => {
-  listar();
-  let estuduiante = listadoEstudiantes.filter(est => est.nombre == nombreEstudiante)
-  if(!estuduiante){
-    console.log("No existe!");
-  }else{
-    console.log(estuduiante);
-  }
-  
-}
-
-const guardar = () => {
-  let datos = JSON.stringify(listadoEstudiantes);
-  fs.writeFile("listado.json", datos, (err)=>{
-    if(err) throw (err)
-    console.log("Archivo creado con éxito");
-  })
-}
-
-const actualizar = (nom, asigntura, calificacion) => {
-  listar();
-  console.log("BEFORE", listadoEstudiantes)
-  let encontrado = listadoEstudiantes.find(buscar => buscar.nombre == nom);
-  console.log("ENCONTRADO=>",encontrado)
-  if(encontrado){
-    encontrado[asigntura] = calificacion;
-    guardar();
-  }else{
-    console.log("Estudiante no existe!");
-  }
-
-  console.log("AFTER", listadoEstudiantes)
-}
-
-
-const eliminar = (nom) => {
-  listar();
-  let indexEstudiante = listadoEstudiantes.findIndex(est => est.nombre == nom);
-  listadoEstudiantes.splice(indexEstudiante,1);
-  guardar();
-}
-module.exports = {
-  crear,
-  mostrar,
-  mostrarEstudiante,
-  actualizar,
-  eliminar
-}*/

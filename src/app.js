@@ -1,98 +1,92 @@
+//Requires
 const express = require('express')
-const port = process.env.PORT || 3000;
-const path = require("path");
-const app = express()
-const funciones = require("./funciones");
-const hbs = require("hbs");
-require("./helpers");
-const bodyParser = require("body-parser");
-
-const directorioPublico = path.join(__dirname, "../public" )
-const directorioPublicoPartials = path.join(__dirname, "../partials" );
-app.use(express.static(directorioPublico))
-app.use(bodyParser.urlencoded({extended: false}))
+const app = express ()
+const path = require('path')
+const hbs = require ('hbs')
+const bodyParser = require('body-parser')
+require('./helpers/helpers')
 
 
+//Paths
+const dirPublic = path.join(__dirname, "../public")
+const dirViews = path.join(__dirname, '../template/views')
+const dirPartials = path.join(__dirname, '../template/partials')
+const dirNode_modules = path.join(__dirname , '../node_modules')
 
-hbs.registerPartials(directorioPublicoPartials);
-app.set("view engine", 'hbs');
-
-
-app.get("/", (req, res) => {
-  res.render("index", {
-    estudiante: 'MAICOL'
-  })
-})
-
-app.get("/inscribir-curso", (req, res) => {
-  res.render("inscribir-curso", {
-    cursosDisponibles: funciones.cursosDisponibles()
-  })
-})
+//Static
+app.use(express.static(dirPublic))
+app.use('/css', express.static(dirNode_modules + '/bootstrap/dist/css'));
+app.use('/js', express.static(dirNode_modules + '/jquery/dist'));
+app.use('/js', express.static(dirNode_modules + '/popper.js/dist'));
+app.use('/js', express.static(dirNode_modules + '/bootstrap/dist/js'));
 
 
-app.get("/ver-cursos", (req, res) => {
-  res.render("ver-cursos", {
-    cursos: funciones.mostrar(),
-    cursosDisponibles: funciones.cursosDisponibles()
-  })
-})
+//BodyParser
+app.use(bodyParser.urlencoded({ extended: false }));
 
+//hbs
+app.set('view engine', 'hbs')
+app.set('views', dirViews)
+hbs.registerPartials(dirPartials)
 
-app.get("/ver-inscritos", (req, res) => {
+//Views
+app.get('/', (req, res ) => {
+	res.render('index', {
+		titulo: 'Inicio'		
+	})	
+});
 
-  res.render("ver-inscritos", {
-    cursosDisponibles: funciones.cursosDisponibles(),
-    eliminar: false
-  })
-})
+app.post('/', (req, res ) => {
 
-app.get("/actualizar", (req, res) => {
-  let id = req.query.id;
-  let state = req.query.estado;
- 
-  funciones.actualizarEstado(id, state);
-  res.redirect("/ver-cursos");
-  
-})
+	res.render('indexpost', {
+		titulo: 'Inicio',
+		nombre: req.body.usuario		
+	})	
+});
 
+app.post('/calculos', (req, res ) => {
+	res.render('calculos', {
+		titulo: 'Calcular Promedio',
+		estudiante : {	
+				nombre: req.body.nombre,
+				matematicas: parseInt(req.body.matematicas),
+				ingles: parseInt(req.body.ingles),
+				programacion: parseInt(req.body.programacion)
+				}	
+	})	
+});
 
-app.get("/eliminar-usuario", (req, res) => {
-  let idcurso = req.query.idcurso;
-  let documento = req.query.documento;
-  funciones.eliminarUsuarioCurso(idcurso, documento);
-  res.render("ver-inscritos", {
-    cursosDisponibles: funciones.cursosDisponibles(),
-    eliminar: true
-  })
-  
-})
- 
-app.post("/agregar-curso", (req, res) => {
-  const creoCurso = funciones.agregarCurso(req.body);
-  res.render("agregar-curso", {
-    curso: creoCurso,
-    mensajeOk: "Curso creado exitosamente!",
-    mensajeFail: "Ya existe un curso con este ID"
-  })
-})
+app.get('/listado', (req, res ) => {
+	res.render('listado', {
+		titulo: 'Listado de Estudiantes'		
+	})	
+});
 
-app.post("/agregar-usuario-curso", (req, res) => {
-  const usuarioCurso = funciones.agregarUsuarioCurso(req.body);
-  res.render("agregar-curso", {
-    curso: usuarioCurso,
-    mensajeOk: "Usuario registrado en el curso correctamente!",
-    mensajeFail: "Ya se encuentra registrado en este curso"
-  })
-})
+app.get('/actualizar', (req, res ) => {
+	res.render('actualizar', {
+		titulo: 'Actualizar un Curso'		
+	})	
+});
 
-app.get("*", (req, res) => {
-  res.render("error", {
-    estudiante: "error"
-  });
+app.post('/actualizar', (req, res ) => {
+	res.render('actualizarPost', {
+		titulo: 'Actualizar un Curso',
+		nombre: req.body.nombre,
+		asignatura: req.body.asignatura,
+		nota: parseInt(req.body.nota)
+	})	
 });
 
 
-app.listen(port, () => {
-  console.log(`Escuchando puerto ${port}`);
-})
+app.get('*',(req,res)=> {
+	res.render('error', {
+		titulo: "Error 404"
+	})
+});
+
+
+
+
+app.listen(3000, () => {
+	console.log ('servidor en el puerto 3000')
+});

@@ -1,0 +1,33 @@
+{{>header}}
+<div class="text-center"><h2> Actualización de nota</h2>
+<p> Ingrese el estudiante, la asignatura y la nota. </p></div>
+<form action="/actualizar" method="post" style="border: solid 1px silver;  border-radius: 10px ">
+  <div class="container">    
+    <div class="row">
+    	<div class="col-sm-4">
+        <div class="form-group">
+        	{{{desplegable}}} 
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label >Nota obtenida</label>
+          <input type="number"  class="form-control"  name="nota" required><br>
+        </div>  
+      </div>
+      <div class="col-sm-4">				
+        <div class="form-group">
+        	<label>Cursos disponibles</label>              
+          	<select class="form-control" name="asignatura">
+        	<option value="-">-</option>
+			<option value="matematicas">Matemáticas</option>
+			<option value="ingles">Inglés</option>
+			<option value="programacion">Programación</option>
+			</select><br></div>`
+        </div>
+      </div>
+    </div>        
+    <div class="text-center"><button class="btn btn-primary">Enviar</button></div>          
+  </div>
+</form>   
+{{>footer}}
