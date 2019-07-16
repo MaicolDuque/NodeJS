@@ -31,7 +31,6 @@ configExpress(app);
 configViewsPartials(app, express);
 routes(app);
 
-app.post('/', (req, res ) => {
 
 server.listen(config.port, () => {
 	console.log (`servidor en el puerto ${config.port}`);
