@@ -21,7 +21,7 @@ router.get("/inscribir-curso", controller.coursesAvailable);
 router.post("/agregar-usuario-curso", controller.agregarUsuarioCurso)
 router.get("/actualizar", controller.updateState);
 router.get("/ver-inscritos", controller.seeSuscribed);
-
-
+router.get("/eliminar-usuario", controller.deleteUserCourse);
+ 
 
 module.exports = router;

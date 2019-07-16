@@ -92,6 +92,24 @@ function coursesAvailable (req, res){
     .catch(handleError(res));
 }
 
+function deleteUserCourse(req, res){
+
+  let idcurso = req.query.idcurso;
+  let documento = req.query.documento;
+  Curso.update({ id: idcurso },{"$pull": { "usuarios": {"documento": documento}}})
+  .then(course => {
+    return  Curso.find().exec()    
+  })
+  .then(courses => {
+    console.log(courses);
+    res.render("ver-inscritos", {
+      cursosDisponibles: cursosDisponibles(courses),
+      eliminar: true
+    })
+  })
+  
+}
+
 
 //Add user in course
 function agregarUsuarioCurso(req, res){
@@ -156,5 +174,6 @@ module.exports = {
   agregarUsuarioCurso,
   updateState,
   seeSuscribed,
-  show
+  show,
+  deleteUserCourse
 }
