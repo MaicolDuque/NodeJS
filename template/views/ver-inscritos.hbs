@@ -1,0 +1,59 @@
+{{>header}}
+
+{{#if eliminar}}
+<div  class="alert alert-success alert-dismissible fade show" role="alert">
+  Registro eliminado exitosamente!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+<h2>Usuarios inscritos por curso:</h2>
+<div class="accordion" id="accordionExample">
+  {{#each cursosDisponibles}}
+  <div class="card">
+
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#collapse{{id}}" aria-expanded="true" aria-controls="collapse{{id}}">
+          <strong> Nombre Curso:</strong> {{nombre}}  
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapse{{id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Documento</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Acciones</th>              
+            </tr>
+          </thead>
+          <tbody>                       
+            {{{listarUsuariosCurso usuarios id }}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+
+  
+<script>
+    $( document ).ready(function() {
+      $( ".alert" ).click(function() {
+        $('.alert').alert('close');
+        window.location.href = "/ver-inscritos";
+      });
+    });
+</script>
+
+{{>footer}}
