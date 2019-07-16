@@ -15,7 +15,7 @@
 
   // MongoDB connection options
   mongo: {
-    uri: process.env.MONGODB_URI || 'mongodb+srv://maicol:maicol123456@cluster0-xc611.mongodb.net/test?retryWrites=true&w=majority',
+    uri: process.env.MONGODB_URI || 'mongodb+srv://maicol:maicol123456@cluster0-xc611.mongodb.net/asignaturas?retryWrites=true&w=majority',
     db: 'asignaturas',
   },
  }
