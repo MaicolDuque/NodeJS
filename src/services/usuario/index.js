@@ -4,7 +4,7 @@
  */
 
 const { Router } = require('express');
-const controller = require("./estudiante.controller");
+const controller = require("./usuario.controller");
 
 const router = new Router();
 
@@ -15,6 +15,7 @@ router.get('/listado', (req, res ) => {
 });
 
 
-router.post('/calculos', controller.create);
+router.post('/registrar', controller.create);
+router.get('/registrar', controller.showRegistrationForm);
 
 module.exports = router;

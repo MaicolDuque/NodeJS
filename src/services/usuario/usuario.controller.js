@@ -22,16 +22,37 @@ function index(req, res) {
 
 // Create student
 function create(req, res) {
-  return Usuario.create(req.body)
-    .then(resp => {       
-      res.render('calculos', {
-        titulo: 'Calcular Promedio',
-        Usuario: newUsuario
-      })	
+  let newUsuario = {
+    documento   : req.body.documento,
+    nombre      : req.body.nombre,
+    correo      : req.body.correo,
+    telefono    : req.body.telefono,
+    rol         : req.body.rol,
+  }
+
+  console.log(newUsuario)
+
+  //Agregar nuevo usuario 
+  Usuario.create(newUsuario)
+  .then(user => {
+    res.render("agregar-curso", {
+      curso: true,
+      mensajeOk: "Usuario registrado correctamente!",
+      mensajeFail: "Ya se encuentra registrado en este curso"
     })
-    .catch(res);
+    console.log("SI:",user)
+  })
+  .catch(resp => {
+    handleError(res, resp)
+  });
     // .then(respondWithResult(res, 201))
     // .catch(handleError(res));
+}
+
+
+// Create student
+function showRegistrationForm(req, res) {    
+    res.render('registrar');	
 }
 
 
@@ -41,14 +62,15 @@ function cursosDisponibles(cursos){
   return cursos.filter(curso => curso.estado == 'disponible');
 }
 
-function handleError(res, code) {
-  const statusCode = code || 500;
-  return (err) => {
-    res.status(statusCode).send(err);
-  };
+function handleError(res,resp, code) {
+  const statusCode = code || 500;  
+    res.render("error", {
+      mensaje: resp
+    })  
 }
 
 module.exports = {
   index,
-  create
+  create,
+  showRegistrationForm
 }

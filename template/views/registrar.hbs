@@ -4,10 +4,10 @@
 
 <div class="card">
   <div class="card-header">
-    Inscribir a un curso
+    Registro de Usuarios
   </div>
   <div class="card-body">
-    <form action="/agregar-usuario-curso" method="post">
+  <form action="/registrar" method="post">
       <div class="form-row">
         <div class="col">
           <input type="text" required="required" class="form-control" name="documento" placeholder="Documento de identidad">
@@ -27,24 +27,12 @@
       </div>
 
       <input type="hidden" name="rol" value="aspirante">
-
-      <div class="form-row my-2 ">
-        <div class="col">
-          <select name="curso" id="" class="form-control" required="required">
-              <option value="">Seleccione curso</option>
-            {{#each cursosDisponibles}}
-              <option value="{{id}}">{{nombre}}</option>          
-            {{/each}}
-          </select>
-        </div>    
-      </div>
-
       
       <div class="form-group">
-        <button type="submit" class="btn btn-dark">ENVIAR</button>
+        <button type="submit" class="btn btn-dark">REGISTRAR</button>
       </div>
       
-    </form>    
+    </form>
   </div>
 </div>
 
