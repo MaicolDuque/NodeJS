@@ -5,7 +5,7 @@
  const all = {
   env: process.env.NODE_ENV,
 
-  url: "http://localhost",
+  url: "https://nodejs-and-mongoose.herokuapp.com/",
 
   // Server port
   port: process.env.PORT || 8080,
@@ -15,9 +15,10 @@
 
   // MongoDB connection options
   mongo: {
-    uri: process.env.MONGODB_URI || 'mongodb://localhost/asignaturas',
+    uri: process.env.MONGODB_URI || 'mongodb+srv://maicol:maicol123456@cluster0-xc611.mongodb.net/asignaturas?retryWrites=true&w=majority',
     db: 'asignaturas',
   },
  }
 
  module.exports = all;
+
