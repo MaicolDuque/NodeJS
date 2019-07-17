@@ -31,7 +31,7 @@ configExpress(app);
 configViewsPartials(app, express);
 routes(app);
 
-
+console.log("ouerto:",config.port)
 server.listen(config.port, () => {
 	console.log (`servidor en el puerto ${config.port}`);
 });

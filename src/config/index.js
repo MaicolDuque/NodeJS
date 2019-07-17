@@ -11,7 +11,7 @@
   port: process.env.PORT || 8080,
 
   // Server IP
-  ip: process.env.IP || '127.0.0.1',
+  ip: process.env.IP || '0.0.0.0',
   
 
   // MongoDB connection options
