@@ -1,3 +1,7 @@
+/**
+ * @author: Maicol Felipe Duque Urrea   <maicolduque01@gmail.com
+ */
+
 //Requires
 const mongoose = require('mongoose');
 const express = require('express')
